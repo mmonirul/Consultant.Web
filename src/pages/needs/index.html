@@ -1,0 +1,77 @@
+﻿<template>
+    <require from="./style.scss"></require>
+    <require from="resources/value-converters"></require>
+    <section class="features-3 alt-background">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Tillgängliga uppdrag</h3>
+                    <p class="lead mt-3">Tillgängliga uppdrag inom dina kompetensområden. Se mer information, och anmäl intresse.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content-4">
+        <div class="container">
+            <div repeat.for="year of availableYearWeeks" if.bind="moduleLoaded">
+                <div repeat.for="weekyear of year.weekYears" style="margin-top: 20px;">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5 class="content-title">
+                                <u>${'vecka '+ weekyear.week +', '+weekyear.year}</u>
+                                <small> ${getWeekDateRange(weekyear.weekdates)}</small>
+                            </h5>
+                        </div>
+                        <div class="col-lg-12">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Arbetsgivare</th>
+                                        <th>Dept.</th>
+                                        <th>Tid</th>
+                                        <th>Ansvarig</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr repeat.for="item of getItemsByWeek(weekyear)">
+                                        <td>
+                                            ${item.data.EmployerBranchOffice} <br />
+                                            ${item.data.EmployerName}
+                                        </td>
+                                        <td>
+                                            ${item.data.EmployerDepartment}
+                                        </td>
+                                        <td>
+                                            <div if.bind="item.isWorkShift">
+                                                ${item.data.Date | dateFormat: 'YYYY-MM-DD'} <br />
+                                                ${item.data.FromTime} -${item.data.ToTime}
+                                            </div>
+                                            <div else>
+                                                veckobokning
+                                            </div>
+                                        </td>
+                                        <td>
+                                            ${item.data.ResponsibleName}
+                                        </td>
+                                        <td>
+                                            <a if.bind="!item.isWorkShift" href.bind="'#/openassignmentdetails/'+item.data.WorkItemId"> Läs mer</a>
+                                            <a if.bind="item.isWorkShift" href.bind="'#/openshiftdetails/'+item.data.id"> Läs mer</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" if.bind="!moduleLoaded">
+                <div class="col-lg-12 text-center">
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</template>

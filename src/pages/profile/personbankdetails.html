@@ -1,0 +1,41 @@
+﻿<template>
+    <div class="col-12">
+        <form class="contact-form" submit.delegate="save()" if.bind="person.PersonId">
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control-custom mb-4" id="bank" placeholder="Bank" value.bind="person.Bank">
+                </div>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control-custom mb-4" id="skattetabell" placeholder="Skattetabell" value.bind="person.TaxTable">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="number" class="form-control-custom mb-4" id="clearingnummer" placeholder="Clearingnummer" value.bind="person.ClearingNumber">
+                </div>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control-custom mb-4" id="kontonummer" placeholder="Kontonummer" value.bind="person.BankAccountNumber">
+                </div>
+            </div>
+			<div class="row">
+				<div class="col-md-12 mt-2" show.bind="showSuccessAlert">
+					<div class="alert alert-success" role="alert">
+						Bankuppgifter har uppdaterats
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="card bg-light">
+						<div class="card-body">
+							<button type="submit" class="btn btn-success" disabled.bind="isSaving">
+								<span show.bind="isSaving">
+									<i class="fa fa-spinner fa-spin"></i>
+								</span>
+								Spara
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+        </form>
+    </div>
+</template>

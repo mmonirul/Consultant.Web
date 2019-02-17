@@ -1,0 +1,172 @@
+﻿<template>
+    <require from="resources/value-converters"></require>
+    <require from="./style.scss"></require>
+
+    <section class="features-3 alt-background">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Tidrapportering</h3>
+                    <p class="lead mt-3">Bokning v. ${workItem.WeekNr +', '+ workItem.YearNr}, ${workItem.EmployerName} ${workItem.EmployerBranchOffice} ${workItem.EmployerDepartment}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content-4">
+        <div class="container">
+            <div class="row" show.bind="workItem.IsTimeReported">
+                <div class="col-12">
+                    <div role="alert" class="alert alert-success">
+                        <i aria-hidden="true" class="fa fa-check-square text-success"></i>
+                        Denna bokning är färdigrapporterad
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div style="width: 20%; float: left;" repeat.for="weekday of weekDays">
+                        <h6 class="content-title">
+                            <u>${weekday | dateFormat: 'dddd, Do'}</u>
+                        </h6>
+                        <div class="card rounded-0" repeat.for="item of getShiftDetails(weekday, timeReportModels)">
+                            <div class="card-header">
+                                <i class="fa fa-check-circle" if.bind="item.workShift.IsTimeReported" style="color: forestgreen;" aria-hidden="true"></i>
+                                Rapport
+                            </div>
+                            <ul class="list-group list-group-flush" repeat.for="timereportline of item.workShiftReportModel.TimeReportLines">
+                                <li class="list-group-item" title="${timereportline.Amount +' ' + timereportline.Uom} ${timereportline.Title}">
+                                    ${timereportline.Amount +' ' + timereportline.Uom} ${timereportline.Title | truncate: 15}
+                                </li>
+                            </ul>
+                            <div class="card-footer">
+                                <button class="btn btn-block btn-success" show.bind="item.workShift && !item.workShift.IsTimeReported" click.delegate="reportShift(item.workShiftReportModel)">
+                                    Rapportera
+                                </button>
+                                <button class="btn btn-block btn-outline-secondary" type="button" show.bind="item.workShift && !item.workShift.IsTimeReported" 
+                                        click.delegate="editTimeReport(item)">
+                                    Ändra
+                                </button>
+                                <button class="btn btn-block btn-outline-secondary" 
+                                        show.bind="item.workShift && item.workShift.IsTimeReported && item.workShiftReportModel" click.delegate="showReportedDetails(item.workShiftReportModel)">
+                                    Visa
+                                </button>
+                            </div>
+                        </div>
+                        <div show.bind="getShiftDetails(weekday).length == 0">
+                            Ingen schemalagd tid
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 mt-4">
+                    <div style="width: 20%; float: left;" repeat.for="weekend of weekends">
+                        <h6 class="content-title">
+                            <u>${weekend | dateFormat: 'dddd, Do'}</u>
+                        </h6>
+                        <div class="card rounded-0" repeat.for="item of getShiftDetails(weekend, timeReportModels)">
+                            <div class="card-header">
+                                <i class="fa fa-check-circle" if.bind="item.workShift.IsTimeReported" style="color: forestgreen;" aria-hidden="true"></i>
+                                Rapport
+                            </div>
+                            <ul class="list-group list-group-flush" repeat.for="timereportline of item.workShiftReportModel.TimeReportLines">
+                                <li class="list-group-item" title="${timereportline.Amount +' ' + timereportline.Uom} ${timereportline.Title}">
+                                    ${timereportline.Amount +' ' + timereportline.Uom} ${timereportline.Title | truncate: 15}
+                                </li>
+                            </ul>
+                            <div class="card-footer">
+                                <button class="btn btn-block btn-success" show.bind="item.workShift && !item.workShift.IsTimeReported" 
+                                        click.delegate="reportShift(item.workShiftReportModel)">
+                                    Rapportera
+                                </button>
+                                <button class="btn btn-block btn-outline-secondary" type="button" 
+                                        show.bind="item.workShift && !item.workShift.IsTimeReported" click.delegate="editTimeReport(item)">
+                                    Ändra
+                                </button>
+                                <button class="btn btn-block btn-outline-secondary" show.bind="item.workShift && item.workShift.IsTimeReported && item.workShiftReportModel" 
+                                        click.delegate="showReportedDetails(item.workShiftReportModel)">
+                                    Visa
+                                </button>
+                            </div>
+                        </div>
+                        <div show.bind="getShiftDetails(weekend).length==0">
+                            Ingen schemalagd tid
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-success" if.bind="!workItem.IsTimeReported" click.delegate="reportShifts()">
+                                Rapportera denna bokning
+                            </button>
+                            <button class="btn btn-outline-secondary" click.delegate="cancel()">
+                                Avbryt
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Modal workshiftReportedDetails -->
+        <div class="modal fade" id="workshiftReportedDetails" tabindex="-1" role="dialog" aria-labelledby="workshiftReportedDetailsTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" if.bind="selecetedWorkshiftreportmodel">
+                    <div class="modal-body">
+                        <h6 class="modal-title" id="workshiftReportedDetailsTitle">
+                            ${selecetedWorkshiftreportmodel.EmployerName}
+                        </h6>
+                        Datum: ${selecetedWorkshiftreportmodel.WorkShift.Date} <br>
+                        Schemalagd tid kl : ${selecetedWorkshiftreportmodel.WorkShift.FromTime} - ${selecetedWorkshiftreportmodel.WorkShift.ToTime}
+                        Rast: ${selecetedWorkshiftreportmodel.WorkShift.BreakMinutes}
+                        <hr />
+
+                        <h6 class="content-title mb-0">
+                            <u class="pb-2">Rapporterad tid</u>
+                        </h6>
+                        <table class="table">
+                            <tbody>
+                                <tr repeat.for="timelog of selecetedWorkshiftreportmodel.TimeLogs">
+                                    <td class="pl-0 py-2" style="white-space: nowrap;">
+                                        ${timelog.StartTime.Date | dateFormat: 'HH:mm'} - ${timelog.StopTime.Date | dateFormat: 'HH:mm'}
+                                    </td>
+                                    <td class="px-0 py-2">
+                                        ${timelog.SpecifiedFromDefaultTimeGroupName}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h6 class="content-title mb-0">
+                            <u class="pb-2">Tid/artikelgrupp</u>
+                        </h6>
+                        <table class="table">
+                            <tbody>
+                                <tr repeat.for="timereportline of selecetedWorkshiftreportmodel.TimeReportLines">
+                                    <td class="pl-0 py-2" style="white-space: nowrap;">
+                                        ${timereportline.Amount + ' ' + timereportline.Uom }
+                                    </td>
+                                    <td class="px-0 py-2">
+                                        ${timereportline.Title}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="1440402">Stäng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+

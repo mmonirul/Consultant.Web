@@ -1,19 +1,66 @@
+﻿
 @{
-    ViewData["Title"] = "Home Page";
+    Layout = null;
 }
 
-<div aurelia-app="main">Loading...</div>
+<!DOCTYPE html>
+<html>
 
-@section scripts {
-<environment names="Development">
-   <script type="text/javascript" src="~/dist/vendor.bundle.js" asp-append-version="true"></script>
-   <script type="text/javascript" src="~/dist/app.bundle.js" asp-append-version="true"></script>
- </environment>
-<environment names="Production">
-   <script type="text/javascript" asp-src-include="~/dist/common.*.bundle.js" asp-append-version="true"></script>
- </environment>
- <environment names="Staging, Production">
-   <script type="text/javascript" asp-src-include="~/dist/vendor.*.bundle.js" asp-append-version="true"></script>
-   <script type="text/javascript" asp-src-include="~/dist/app.*.bundle.js" asp-append-version="true"></script>
- </environment>
-}
+<head>
+    <meta charset="utf-8">
+    <title>Konsult portal</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="https://adockacdnstorage.blob.core.windows.net/sharedcdn/startup-ui-kit/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://adockacdnstorage.blob.core.windows.net/sharedcdn/startup-ui-kit/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i|Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+</head>
+
+<body>
+    <section class="cover-1 text-center">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" href="#"></a>
+            </div>
+        </nav>
+
+        <div class="cover-container pb-5">
+            <div class="cover-inner container">
+                <h1 class="jumbotron-heading"> Logga in till ditt <strong>Konsultkonto</strong></h1>
+
+                <p class="lead">Se tillgängliga uppdrag, se var och när du är bokad och tidrapportera och hantera din profil.</p>
+
+                <p>
+                    <a href="/app" class="btn btn-primary btn-lg mb-2 mr-2 ml-2"> Logga in</a>
+                </p>
+            </div>
+        </div>
+    </section>
+    <footer class="footer-4 pt-3">
+        <div class="container-fluid">
+            <div class="divider"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-left mt-2 mb-3 pt-1">
+                    <p class="copyright">Copyright © YourStartup. All rights reserved.</p>
+                </div>
+
+                <div class="col-md-6 text-center text-md-right mb-4">
+                    <ul class="social">
+                        <li><a href="#" title="Facebook" class="fa fa-facebook"></a></li>
+                        <li><a href="#" title="Twitter" class="fa fa-twitter"></a></li>
+                        <li><a href="#" title="Google+" class="fa fa-google"></a></li>
+                        <li><a href="#" title="Dribbble" class="fa fa-dribbble"></a></li>
+                        <li><a href="#" title="Instagram" class="fa fa-instagram"></a></li>
+
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

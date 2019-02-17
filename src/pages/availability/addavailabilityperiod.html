@@ -1,0 +1,76 @@
+﻿<template>
+    <require from="resources/value-converters"></require>
+    <section class="features-3 alt-background">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Lägg till tillgänglighet</h3>
+                    <p class="lead mt-3">Lägg till en period då ni är tillgänglig, och klicka på spara</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <template repeat.for="year of years">
+                        <div class="">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="align-self-center">${year}</h6>
+                                <a href="#" class="btn btn-link" click.delegate="selectAllWeeks(year)">
+                                    Lägg till alla
+                                </a>
+                            </div>
+                            <hr class="mt-1" />
+                            <div class="form-group">
+                                <ul class="pagination" style="margin: 10px 0;">
+                                    <template repeat.for="week of getWeeks(year)">
+                                        <li class="page-item ${week.isSelected? 'active': ''}">
+                                            <a href="#" style="width:50px;" class="page-link text-center"
+                                               click.delegate="selectWeek(week)">${ week.Week }</a>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="card-title pb-2 mb-3 border-bottom"> Veckodagar</h6>
+                            <template repeat.for="item of model.WeekDays">
+                                <div class="custom-control custom-checkbox custom-control-inline mb-2">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck${$index}" model.bind="item" checked.bind="model.SelectedWeekDays">
+                                    <label class="custom-control-label" for="customCheck${$index}"> ${item.DayOfWeekName} </label>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="card-title pb-2 mb-3 border-bottom"> Tid</h6>
+                            <div class="input-group">
+                                <input type="time" value.bind="model.FromTime" class="form-control">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> - </span>
+                                </div>
+                                <input type="time" value.bind="model.ToTime" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 my-4">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <button class="btn btn-success" type="button" click.delegate="save()"> Spara</button>
+                            <button class="btn btn-outline-secondary" type="button" click.delegate="cancel()"> Avbryt</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</template>
+

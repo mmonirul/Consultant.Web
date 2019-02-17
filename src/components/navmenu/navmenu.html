@@ -1,0 +1,40 @@
+<template>
+    <require from="../../resources/value-converters"></require>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand pt-0" href="/index">
+                <img src="${companydetails.LogoUrl? companydetails.LogoUrl : 'https://www.adocka.com/images/adocka-logo.png'}" class="img-fluid" style="height: 40px;" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li repeat.for="row of router.navigation" class="nav-item ${row.isActive ? 'active' : ''}">
+                    <a href.bind="row.href" class="nav-link" id="${ row.title | removeSpace}">
+                        ${row.title | translate}
+                    </a>
+                </li>
+            </ul>
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item dropdown" if.bind="isUserLoggedin()">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                          ${persondetails.Name}
+                      </a>
+                      <div class="dropdown-menu" style="right: 0;">
+                          <a class="dropdown-item" href="#profile">
+                              Mitt konto
+                          </a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#logout">
+                              Logga ut
+                          </a>
+                      </div>
+                  </li>
+              </ul>
+            </div>
+        </div>
+
+    </nav>
+</template>

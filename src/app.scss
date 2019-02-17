@@ -1,0 +1,115 @@
+﻿@import url("https://adockacdnstorage.blob.core.windows.net/sharedcdn/startup-ui-kit/css/style.css");
+@import url("https://adockacdnstorage.blob.core.windows.net/sharedcdn/startup-ui-kit/css/font-awesome.min.css");
+
+
+
+.card-body {
+    padding: .75rem;
+}
+
+.content-title {
+    position: relative;
+    display: block;
+    margin-bottom: .5em;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.content-title u {
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    padding-right: 1em;
+    padding-bottom: 15px;
+    color: #444;
+    text-decoration: none;
+    border-bottom: 1px solid #6685a4;
+}
+
+.card table tr:first-child td {
+    border-top: 0px;
+}
+
+.calendar-unit {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.calendar-unit .date {
+    background: #f5c6cb;
+    color: white;
+    text-align: center;
+    width: 60px;
+    border-radius: 8px;
+}
+
+.calendar-unit .date .month {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 6px;
+}
+
+.calendar-unit .date .day {
+    background-color: #fff;
+    color: #333;
+    font-size: 20px;
+    padding: 6px 12px;
+    font-weight: 600;
+}
+
+
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.pagination > li:first-child {
+    margin-left: 0;
+}
+
+.pagination > li {
+    display: inline-block;
+    margin: 0 3px;
+    margin-left: 3px;
+}
+
+.pagination > li:first-child > a {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.pagination > li > a {
+    color: #222;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.pagination > li > a {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #428bca;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+
+/* bootstrap-datetimepicker adjustment for BS4 */
+
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td {
+    padding: 5px;
+}
+

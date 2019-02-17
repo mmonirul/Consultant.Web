@@ -1,3 +1,9 @@
 <template>
-  <h1>${message}</h1>
+    <require from="./app.scss"></require>
+    <require from="./components/navmenu/navmenu"></require>
+    
+    <navmenu companydetails.bind="companyDetails"></navmenu>
+    <div class="">
+        <router-view></router-view>
+    </div>
 </template>

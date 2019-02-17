@@ -12,13 +12,17 @@
     "baseUrl": "src",
     "skipLibCheck": true,
     "lib": [
-      "es2017", "dom"
+      "es2017",
+      "dom"
     ]
   },
+  "types": [ "i18next", "i18next-xhr-backend" ],
   "include": [
     "./src/**/*.ts",
     "./test/**/*.ts",
-    "./custom_typings/**/*.d.ts"
+    "./custom_typings/**/*.d.ts",
+    "src/pages/assignment",
+    "src/pages/booking", "Views/Home/App.cshtml"
   ],
   "atom": {
     "rewriteTsconfig": false

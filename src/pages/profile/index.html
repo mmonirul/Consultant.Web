@@ -1,0 +1,44 @@
+﻿<template>
+    <require from="./profile.scss"></require>
+    <section class="features-3 alt-background">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Mitt konto</h3>
+                    <p class="lead mt-3">Hantera och uppdatera dina uppgifter så att vi har korrekt information till Er</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <template repeat.for="row of router.navigation">
+                            <a href.bind="row.href" class="nav-link ${row.isActive ? 'active' : ''}"> ${row.title}</a>
+                        </template>
+                    </div>
+                    <div class="p-3">
+                        <h6>
+                            Ansvarig
+                        </h6>
+                        <p class="text-secondary">
+                            ${responsible.Name}
+                        </p>
+                        <small show.bind="responsible.CellPhone">
+                            <a href="tel:${responsible.CellPhone}"><i class="fa fa-phone"></i> ${responsible.CellPhone}</a><br />
+                        </small>
+                        <small show.bind="responsible.Email">
+                            <a href="mailto:${responsible.Email}"><i class="fa fa-envelope"></i> ${responsible.Email}</a>
+                        </small>
+                    </div>
+
+                </div>
+                <div class="col-md-8">
+                    <router-view></router-view>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

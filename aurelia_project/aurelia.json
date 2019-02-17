@@ -1,5 +1,5 @@
 {
-  "name": "Adocka.Client.Consultant.Web",
+  "name": "adocka.consultant.web",
   "type": "project:application",
   "bundler": {
     "id": "webpack",
@@ -45,8 +45,8 @@
   },
   "unitTestRunners": [
     {
-      "id": "none",
-      "displayName": "None"
+      "id": "jest",
+      "displayName": "Jest"
     }
   ],
   "integrationTestRunner": {
@@ -60,6 +60,10 @@
     "attributes": "resources/attributes",
     "valueConverters": "resources/value-converters",
     "bindingBehaviors": "resources/binding-behaviors"
+  },
+  "testFramework": {
+    "id": "jasmine",
+    "displayName": "Jasmine"
   },
   "packageManager": "npm"
 }

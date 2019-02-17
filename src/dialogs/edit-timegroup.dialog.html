@@ -1,0 +1,57 @@
+﻿<template>
+    <require from="./style.scss"></require>
+    <require from="../resources/value-converters"></require>
+
+    <ux-dialog class="dialog-md">
+        <ux-dialog-header>
+            <h5><i class="far fa-clock"></i> ${title} </h5>
+        </ux-dialog-header>
+
+        <ux-dialog-body>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label>Valj dag </label>
+                    <select class="form-control form-control-lg" value.bind="model.selectedDate">
+                        <option repeat.for="date of model.dates" model.bind="date" class="text-capitalize">
+                            ${date | dateFormat:'dddd Do YYYY'}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-12 mb-3">
+                    <label>Valj tidgrupp </label>
+                    <select class="form-control form-control-lg" value.bind="model.selectedTimeGroup">
+                        <option repeat.for="timegroup of model.timeGroups" model.bind="timegroup">
+                            ${timegroup.Name}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label>Antal</label>
+                    <div class="input-group input-group-lg" if.bind="model.selectedTimeGroup.Uom == 'h'">
+                        <input type="number" value.bind="model.hours" min="0" max="9999" class="form-control" aria-label="typ" style="border: 0.1rem solid #dfe1e5;">
+                        <div class="input-group-append">
+                            <span class="input-group-text"> tim</span>
+                        </div>
+                        <input type="number" value.bind="model.minutes" min="0" step="15" max="45" class="form-control" aria-label="typ" style="border: 0.1rem solid #dfe1e5;">
+                        <div class="input-group-append">
+                            <span class="input-group-text"> min</span>
+                        </div>
+                    </div>
+                    <div class="input-group input-group-lg" if.bind="model.selectedTimeGroup.Uom != 'h'">
+                        <input type="number" value.bind="model.qty" min="0" max="9999" class="form-control" aria-label="typ" style="border: 0.1rem solid #dfe1e5;">
+                        <div class="input-group-append">
+                            <span class="input-group-text">${model.selectedTimeGroup.Uom}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </ux-dialog-body>
+
+        <ux-dialog-footer class="text-left">
+            <button class="btn btn-primary" click.trigger="controller.ok(model)"> Spara</button>
+            <button class="btn btn-outline-secondary" click.trigger="controller.cancel()"> Avbryt</button>
+        </ux-dialog-footer>
+    </ux-dialog>
+</template>

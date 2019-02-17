@@ -1,0 +1,47 @@
+﻿<template>
+    <require from="./style.scss"></require>
+    <ux-dialog class="">
+        <ux-dialog-header>
+            <h5><i class="fa fa-clock"></i> ${title} </h5>
+        </ux-dialog-header>
+
+        <ux-dialog-body>
+            <form action="/" method="post">
+                <div class="row">
+                    <div class="col-12 mb-3" if.bind="model.AutoCalculatingTimeGroups.length > 0">
+                        <select class="form-control-custom" value.bind="selecetedTimeGroup">
+                            <option model.bind="null"> Arbetstid (standard)</option>
+                            <option repeat.for="timegroup of model.ManualTimeGroups" model.bind="timegroup">
+                                ${timegroup.Name}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-3" if.bind="model.AutoCalculatingTimeGroups.length === 0">
+                        <select class="form-control-custom" value.bind="model.FromDefaultPriceProfileTimeGroupId">
+                            <option repeat.for="timegroup of model.ManualTimeGroups" model.bind="timegroup.DefaultPriceProfileTimeGroupId">
+                                ${timegroup.Name}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 mb-3">
+                        <label>Från</label>
+                        <input type="time" class="form-control-custom" value.bind="model.FromTime" />
+                    </div>
+                    <div class="col-lg-6 col-md-12 mb-3">
+                        <label>Till</label>
+                        <input type="time" class="form-control-custom" value.bind="model.ToTime" />
+                    </div>
+                </div>
+            </form>
+
+        </ux-dialog-body>
+
+        <ux-dialog-footer class="text-left">
+            <button class="btn btn-primary" click.trigger="ok()"> Spara</button>
+            <button class="btn btn-outline-secondary" click.trigger="controller.cancel()"> Avbryt</button>
+        </ux-dialog-footer>
+    </ux-dialog>
+
+
+</template>

@@ -1,0 +1,34 @@
+﻿
+/*Overridded*/
+ux-dialog-overlay.active {
+    background-color: black;
+    opacity: .5;
+    z-index: 1050 !important;
+}
+
+ux-dialog-container.active {
+    z-index: 1050 !important;
+    margin-top: 50px;
+}
+
+ux-dialog-container > div > div .dialog-lg {
+    display: block;
+    min-width: 800px;
+    margin: auto
+}
+
+ux-dialog-container > div > div .dialog-md {
+    max-width: 500px
+}
+
+ux-dialog-container > div > div .dialog-sm {
+    display: block;
+    min-width: 350px;
+    margin: auto
+}
+
+@media (min-width: 992px) {
+    .dialog-lg {
+        max-width: 800px;
+    }
+}

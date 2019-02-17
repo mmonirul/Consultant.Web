@@ -1,0 +1,29 @@
+﻿.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #e7edf3 !important;
+    border-color: #d9dfe4 !important;
+}
+
+
+.card-header {
+    padding: .5rem;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .card-group {
+        -ms-flex-flow: row wrap;
+        flex-flow: column;
+    }
+
+    .card-group .card {
+        border: 1px solid rgba(0,0,0,.125) !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-group .card {
+        max-width: 223px;
+    }
+}

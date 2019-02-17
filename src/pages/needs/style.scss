@@ -1,0 +1,32 @@
+﻿
+.table th {
+    border-top: 0;
+}
+
+.calendar-unit {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.calendar-unit .date {
+    background: #347eaa;
+    color: white;
+    text-align: center;
+    width: 60px;
+    border-radius: 8px;
+}
+
+.calendar-unit .date .month {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 6px;
+}
+
+.calendar-unit .date .day {
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 20px;
+    padding: 6px 12px;
+    font-weight: 600;
+}

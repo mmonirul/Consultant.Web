@@ -1,0 +1,38 @@
+﻿<template>
+    <require from="./style.scss"></require>
+    <ux-dialog class="">
+        <ux-dialog-header>
+            <h5><i class="fa fa-clock"></i> ${title} </h5>
+        </ux-dialog-header>
+
+        <ux-dialog-body>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label>Typ </label>
+                    <select class="form-control form-control-lg" value.bind="model.SelectedTimeGroup">
+                        <option repeat.for="timegroup of model.ManualTimeGroups" model.bind="timegroup">
+                            ${timegroup.Name}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label>Antal</label>
+                    <div class="input-group input-group-lg">
+                        <input type="text" value.bind="model.Amount" min="0" max="9999" class="form-control" aria-label="typ" style="border: 0.1rem solid #dfe1e5;">
+                        <div class="input-group-append">
+                            <span class="input-group-text">${model.SelectedTimeGroup.Uom}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ux-dialog-body>
+
+        <ux-dialog-footer class="text-left">
+            <button class="btn btn-primary" click.trigger="controller.ok(model)"> Spara</button>
+            <button class="btn btn-outline-secondary" click.trigger="controller.cancel()"> Avbryt</button>
+        </ux-dialog-footer>
+    </ux-dialog>
+
+
+</template>

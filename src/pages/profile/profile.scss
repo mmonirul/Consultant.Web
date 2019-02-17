@@ -1,0 +1,37 @@
+
+.nav-pills .nav-link {
+    border-radius: 0;
+    border-bottom: 1px solid rgba(4, 129, 110, 0.39);
+    line-height: 30px;
+}
+
+.nav-pills:first-child {
+    border-top: 1px solid rgba(4, 129, 110, 0.39);
+}
+
+.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
+    background-color: rgba(219, 239, 251, 0.47);
+    color: #73d1f6;
+    font-weight: 600;
+}
+
+@media (max-width: 991.98px) {
+ 
+}
+.drop-zone {
+    min-height: 150px;
+    min-width: 150px;
+    border: 1px dashed #ccc;
+    cursor: pointer;
+    /*padding: 30px 25px;*/
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+.card-trash {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    cursor: pointer;
+}   

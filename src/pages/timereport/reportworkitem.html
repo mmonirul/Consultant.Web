@@ -1,0 +1,209 @@
+﻿<template>
+    <require from="../../resources/value-converters"></require>
+    <require from="./style.scss"></require>
+
+    <section class="features-3 alt-background">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Tidrapport</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-3 mb-md-0">
+                    <div class="box">
+                        <div class="d-flex justify-content-between">
+                            <div class="">
+                                <h5 class="mb-2">
+                                    ${workItem.EmployerBranchOffice}
+                                </h5>
+                                <span class="text-muted">
+                                    <i class="fa fa-map-marker mr-1" aria-hidden="true"></i>
+                                    ${workItem.LocationAddress}
+                                </span>
+                                <span class="text-muted">
+                                    <i class="fa fa-building ml-2 mr-1" aria-hidden="true"></i>
+                                    ${workItem.EmployerName}
+                                </span>
+                            </div>
+                            <div class="">
+                                v. ${workItem.WeekNr +', '+ workItem.YearNr}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div role="alert" class="alert alert-success mb-3" show.bind="workItem.IsTimeReported">
+                        <i aria-hidden="true" class="far fa-check-square text-success"></i>
+                        Detta pass har redan rapporterats
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="box">
+                        <div class="row">
+                            <div class="col-lg-12 my-3">
+                                <div class="content-title">
+                                    <h5 class="mb-0">
+                                        <span show.bind="isSaving">
+                                            <i class="fa fa-spinner fa-spin"></i>
+                                        </span>
+                                         <u>Veckodagar</u>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-3">
+                                <div class="card-group">
+                                    <div class="card rounded-0" repeat.for="weekday of weekDays">
+                                        <div class="card-header">
+                                            <h6 class="card-title text-capitalize mb-0">
+                                                ${weekday | dateFormat: 'dddd, Do YYYY'}
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div if.bind="timeEntries.length > 0">
+                                                <div repeat.for="timeentry of getTimeEntries(weekday, timeEntries)">
+                                                    <div>
+                                                        <span class="content-title font-weight-500">
+                                                            <u class="pb-2"> ${timeentry.Description} </u>
+                                                        </span>
+                                                        <div if.bind="timeentry.Uom === 'h'">
+                                                            <div class="d-flex justify-content-between mb-2">
+                                                                <div class="">
+                                                                    <small><i class="far fa-clock"></i></small>
+                                                                    ${timeentry.Hours +' tim '+ timeentry.Minutes + ' min'}
+                                                                </div>
+                                                                <small class="align-self-center">
+                                                                    <a href="#" click.delegate="editTimeEntry(timeentry)"
+                                                                       if.bind="!workItem.IsTimeReported">Ändra</a>
+                                                                    <a href="#" class="ml-2 text-danger" click.delegate="deleteTimeEntry(timeentry)" if.bind="!workItem.IsTimeReported" title="Ta bort">
+                                                                        x
+                                                                    </a>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                        <div if.bind="timeentry.Uom !== 'h'">
+                                                            <div class="d-flex justify-content-between mb-2">
+                                                                ${timeentry.Qty +' '+ timeentry.Uom}
+                                                                <small>
+                                                                    <a href="#" click.delegate="editTimeEntry(timeentry)" if.bind="!workItem.IsTimeReported">
+                                                                        Ändra
+                                                                    </a>
+                                                                    <a href="#" class="ml-2 text-danger" click.delegate="deleteTimeEntry(timeentry)" if.bind="!workItem.IsTimeReported" title="Ta bort">
+                                                                        x
+                                                                    </a>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div else class="text-warning mb-3">
+                                                Ingen schemalagd
+                                            </div>
+                                            <button class="btn btn-outline-secondary btn-block mt-3"
+                                                    click.delegate="addNewTimeEntry(weekday, workItem)" if.bind="!workItem.IsTimeReported" disabled.bind="isSaving">
+                                                Lägg till
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mb-3">
+                                <div class="content-title">
+                                    <h5 class="mb-0">
+                                        <u>Helg</u>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-3">
+                                <div class="card-group">
+                                    <div class="card rounded-0" repeat.for="weekday of weekends">
+                                        <div class="card-header">
+                                            <h6 class="card-title text-capitalize mb-0">
+                                                ${weekday | dateFormat: 'dddd, Do YYYY'}
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div if.bind="timeEntries.length > 0">
+                                                <div repeat.for="timeentry of getTimeEntries(weekday, timeEntries)">
+
+                                                    <div>
+                                                        <span class="content-title font-weight-500">
+                                                            <u class="pb-2"> ${timeentry.Description} </u>
+                                                        </span>
+                                                        <div if.bind="timeentry.Uom === 'h'">
+                                                            <div class="d-flex justify-content-between mb-2">
+                                                                <div class="">
+                                                                    <small><i class="far fa-clock"></i></small>
+                                                                    ${timeentry.Hours +' tim '+ timeentry.Minutes + ' min'}
+                                                                </div>
+                                                                <small class="align-self-center">
+                                                                    <a href="#" click.delegate="editTimeEntry(timeentry)"
+                                                                       if.bind="!workItem.IsTimeReported"> Ändra</a>
+                                                                    <a href="#" class="ml-2 text-danger" click.delegate="deleteTimeEntry(timeentry)" if.bind="!workItem.IsTimeReported" title="Ta bort">
+                                                                        x
+                                                                    </a>
+
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                        <div if.bind="timeentry.Uom !== 'h'">
+                                                            <div class="d-flex justify-content-between mb-2">
+                                                                ${timeentry.Qty +' '+ timeentry.Uom}
+                                                                <small>
+                                                                    <a href="#" click.delegate="editTimeEntry(timeentry)" if.bind="!workItem.IsTimeReported">
+                                                                        Ändra
+                                                                    </a>
+                                                                    <a href="#" class="ml-2 text-danger" click.delegate="deleteTimeEntry(timeentry)" if.bind="!workItem.IsTimeReported" title="Ta bort">
+                                                                        x
+                                                                    </a>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div else class="text-warning mb-3">
+                                                Ingen schemalagd
+                                            </div>
+                                            <button class="btn btn-outline-secondary btn-block mt-3" disabled.bind="isSaving"
+                                                    click.delegate="addNewTimeEntry(weekday, workItem)" if.bind="!workItem.IsTimeReported">
+                                                Lägg till
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <button class="btn btn-success" if.bind="!workItem.IsTimeReported" click.delegate="reportWorkItem()" disabled.bind="isSaving">
+                                Rappotera
+                            </button>
+                            <!--<a href="#/" class="btn btn-outline-secondary" click.delegate="cancel()">
+                                Avbryt
+                            </a>-->
+                            <button class="btn btn-outline-secondary" click.delegate="cancel()">
+                                Avbryt
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</template>
+

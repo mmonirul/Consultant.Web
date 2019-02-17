@@ -1,0 +1,31 @@
+﻿<template>
+    <require from="./style.scss"></require>
+    <ux-dialog>
+        <ux-dialog-header>
+            <h5>Ändra område/expertis</h5>
+        </ux-dialog-header>
+
+        <ux-dialog-body>
+            <div class="row">
+                <div class="col-lg-4" repeat.for="areaOfExpertise of areaOfExpertises">
+                    <div class="form-inline">
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input"
+                                   model.bind="areaOfExpertise" checked.bind="selectedAreaOfExpertises" id.bind="$index">
+                            <label class="custom-control-label" for.bind="$index">
+                                ${areaOfExpertise.Name}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ux-dialog-body>
+
+        <ux-dialog-footer class="text-left">
+            <button class="btn btn-success" click.delegate="save()"> Ok</button>
+            <button class="btn btn-outline-secondary" click.trigger="controller.cancel()">Cancel</button>
+        </ux-dialog-footer>
+    </ux-dialog>
+
+
+</template>

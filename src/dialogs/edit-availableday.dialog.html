@@ -1,0 +1,32 @@
+﻿<template>
+    <require from="./style.scss"></require>
+    <ux-dialog class="">
+        <ux-dialog-header>
+            <h5><i class="fa fa-clock"></i> ${title} </h5>
+        </ux-dialog-header>
+
+        <ux-dialog-body>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <h6 class="card-title pb-2 mb-3 border-bottom"> Datum</h6>
+                    <abp-datetime-picker value.bind="model.Date" model.bind="dateObject" options.bind="{ format:'YYYY-MM-DD', locale: 'sv'}"></abp-datetime-picker>
+
+                    <h6 class="card-title pb-2 my-3 border-bottom"> Tid</h6>
+                    <div class="input-group">
+                        <input type="time" value.bind="model.FromTime" class="form-control">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> - </span>
+                        </div>
+                        <input type="time" value.bind="model.ToTime" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </ux-dialog-body>
+
+        <ux-dialog-footer class="text-left">
+            <button class="btn btn-success" click.trigger="controller.ok(model)"> Spara</button>
+            <button class="btn btn-outline-secondary" click.trigger="controller.cancel()"> Avbryt</button>
+        </ux-dialog-footer>
+    </ux-dialog>
+
+</template>

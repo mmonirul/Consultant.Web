@@ -4,11 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApplicationBasic.Controllers
+namespace Adocka.Consultant.Web.Controllers
 {
     public class HomeController : Controller
     {
         public IActionResult Index()
+        {
+            return View();
+        }
+        [Route("app")]
+        public IActionResult App()
         {
             return View();
         }

@@ -4,6 +4,15 @@ module.exports = {
   scripts: {
     default: 'nps webpack',
     test: {
+      default: 'nps test.jest',
+      jest: {
+        default: series(
+          rimraf('test/coverage-jest'),
+          'jest'
+        ),
+        accept: 'jest -u',
+        watch: 'jest --watch',
+      },
 
 
       lint: {
@@ -11,6 +20,7 @@ module.exports = {
         fix: 'eslint src --fix'
       },
       all: concurrent({
+        jest: 'nps test.jest',
         lint: 'nps test.lint'
       })
     },

@@ -1,0 +1,156 @@
+﻿<template>
+    <require from="./profile.scss"></require>
+    <div class="features-3 p-0">
+        <div class="col-lg-12 col-feature mt-0 pt-0">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <div class="d-flex justify-content-between pb-1 border-bottom">
+                            <h6 class="mb-0 text-dark">
+                                Geografiska önskemål
+                            </h6>
+                            <button class="btn btn-link p-0" click.delegate="editCountyCouncil()" type="button">
+                                <i class="fa fa-edit"></i> Ändra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6" repeat.for="item of person.PreferedCountyCouncilNames">
+                        <i class="fa fa-check-square text-secondary mr-2"></i> ${item}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-feature">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <div class="d-flex justify-content-between pb-1 border-bottom">
+                            <h6 class="mb-0 text-dark">
+                                Område/expertis
+                            </h6>
+                            <button class="btn btn-link p-0" click.delegate="editAreaOfExpertise()" type="button">
+                                <i class="fa fa-edit"></i> Ändra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6" repeat.for="item of person.AllAreaOfExpertises">
+                        <i class="fa fa-check-square text-secondary mr-2"></i> ${item}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-lg-12 col-feature">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <div class="d-flex justify-content-between pb-1 border-bottom">
+                            <h6 class="mb-0 text-dark">
+                                Kunskaper
+                            </h6>
+                            <button class="btn btn-link p-0" click.delegate="editProfile()" type="button" title="Ändra kunskaper i journalsys">
+                                <i class="fa fa-edit"></i> Ändra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6" repeat.for="item of knowledgeOfMedicalRecords">
+                        <span if.bind="item">
+                            <i class="fa fa-check-square text-secondary mr-2"></i> ${item}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-lg-12 col-feature">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <div class="d-flex justify-content-between pb-1 border-bottom">
+                            <h6 class="mb-0 text-dark">
+                                Utbildning
+                            </h6>
+                            <button class="btn btn-link p-0" click.delegate="addEducation()" type="button" title="">
+                                <i class="fa fa-plus-square"></i> Lägg till
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" repeat.for="education of educations">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <a href="#!" click.delegate="deleteEducation(education)"><i class="fa fa-trash card-trash text-danger"></i></a>
+                                <p class="card-title">
+                                    ${education.Name} <small class="text-secondary"> ( ${education.From} - ${education.To} )</small>
+                                    <br />
+                                    <span class="text-secondary"> ${education.Where}</span>
+                                </p>
+                                <p class="card-text"> ${education.Description}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-feature">
+			<div class="">
+				<div class="row">
+					<div class="col-md-12 mb-2">
+						<div class="d-flex justify-content-between pb-1 border-bottom">
+							<h6 class="mb-0 text-dark">
+								Erfarenhet
+							</h6>
+							<button class="btn btn-link p-0" click.delegate="addExperience()" type="button" title="">
+								<i class="fa fa-plus-square"></i> Lägg till
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12" repeat.for="experience of experiences">
+
+						<div class="card mt-3">
+							<div class="card-body p-3">
+								<a href="#!" click.delegate="deleteExperience(experience)"><i class="fa fa-trash card-trash text-danger"></i></a>
+								<p class="card-title">
+									${experience.Name} <small class="text-secondary"> ( ${experience.From} - ${experience.To} )</small>
+									<br />
+									<span class="text-secondary"> ${experience.Where}</span>
+								</p>
+								<p class="card-text">  ${experience.Description}</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12 mt-2" show.bind="showSuccessAlert">
+						<div class="alert alert-success" role="alert">
+							Kunskapsprofil har uppdaterats
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="card bg-light">
+						<div class="card-body">
+							<button type="button" class="btn btn-success" click.delegate="save()" disabled.bind="isSaving">
+								<span show.bind="isSaving">
+									<i class="fa fa-spinner fa-spin"></i>
+								</span>
+								Spara
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+        </div>
+    </div>
+
+</template>

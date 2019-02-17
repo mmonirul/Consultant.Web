@@ -1,0 +1,52 @@
+﻿<template>
+    <require from="./style.scss"></require>
+    <ux-dialog class="">
+        <ux-dialog-header>
+            <h5>${model.title}</h5>
+        </ux-dialog-header>
+
+        <ux-dialog-body>
+            <form action="/" method="post">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label if.bind="model.type == 'education'">Var genomfördes utbildningen</label>
+                            <label else>Var</label>
+
+                            <input class="form-control" type="text" value.bind="model.item.Where" required>
+                        </div>
+                        <div class="form-group">
+                            <label if.bind="model.type == 'education'">Namn</label>
+                            <label else>Titel/position</label>
+                            <input class="form-control" type="text" value.bind="model.item.Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Beskrivning</label>
+                            <textarea class="form-control" value.bind="model.item.Description"> </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Mellan vilka år</label>
+                            <div class="row">
+                                <div class="col-lg-4 mb-2">
+                                    <input class="form-control" type="text" value.bind="model.item.From" required>
+                                </div>
+                                <div class="col-lg-4">
+                                    <input class="form-control" type="text" value.bind="model.item.To">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </ux-dialog-body>
+
+        <ux-dialog-footer class="text-left">
+            <button class="btn btn-success" click.trigger="controller.ok(model)">Ok</button>
+            <button class="btn btn-outline-secondary" click.trigger="controller.cancel()">Cancel</button>
+        </ux-dialog-footer>
+    </ux-dialog>
+
+
+</template>

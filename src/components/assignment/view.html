@@ -1,0 +1,31 @@
+﻿<template>
+    <require from="resources/value-converters"></require>
+    <div class="card">
+        <div class="card-header">
+            <h5>
+                ${workitem.EmployerName} <br>
+                <small>${workitem.EmployerBranchOffice +'  '+ workitem.EmployerDepartment}</small>
+            </h5>
+        </div>
+        <ul class="list-group list-group-flush" if.bind="workitem.WorkShifts.length > 0">
+            <li class="list-group-item" repeat.for="workShift of sortByDay(workitem.WorkShifts)">
+                <i class="fa fa-check-circle" if.bind="workShift.IsTimeReported" style="color: forestgreen;" aria-hidden="true"></i>
+                <i class="fa fa-square" if.bind="!workShift.IsTimeReported" style="color: #ffffff;" aria-hidden="true"></i>
+                ${workShift.Date | dateFormat: 'dddd'} ${workShift.FromTime +' - ' + workShift.ToTime}
+            </li>
+        </ul>
+        <ul class="list-group list-group-flush" show.bind="workitem.WorkShifts.length == 0">
+            <li class="list-group-item">Ingen schemalagd arbetstid</li>
+        </ul>
+        <div class="card-footer">
+            <a href.bind="'#reportworkitem?id='+workitem.WorkItemId" if.bind="workitem.WorkShifts.length == 0 && !workitem.IsTimeReported" class="btn btn-success pill-btn">Tidrapportera</a>
+            <a href.bind="'#reportshifts?id='+workitem.WorkItemId" if.bind="workitem.WorkShifts.length > 0 && !workitem.IsTimeReported" class="btn btn-success pill-btn">Tidrapportera</a>
+            <div if.bind="workitem.IsTimeReported">
+                <a class="btn btn-success pill-btn" href.bind="'#assignmentdetails/'+workitem.WorkItemId"> Visa info</a>
+                <span class="ml-2">Är tidrapporterad</span>
+            </div>
+            <a if.bind="!workitem.IsTimeReported" href.bind="'#assignmentdetails/'+workitem.WorkItemId"> Läs mer</a>
+        </div>
+    </div>
+
+</template>
